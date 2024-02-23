@@ -40,7 +40,6 @@ public class UserController {
     //con il token se l'user è basic lo traforma in admi e viceversa
     @PatchMapping("/me/setrole")
     public User findByTokenAndChangeRole(@AuthenticationPrincipal User user) {
-
         User updateUser = userService.findByTokenAndChangeRole(user);
         return updateUser;
     }
