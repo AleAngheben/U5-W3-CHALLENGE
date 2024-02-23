@@ -28,5 +28,4 @@ public class Booking {
     @JoinColumn(name = "user_id")
     private User user;
 
-    private int ciao;
 }
