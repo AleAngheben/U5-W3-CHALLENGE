@@ -31,6 +31,8 @@ public class UserController {
         return user;
     }
 
+
+    //mi torna lista di booking in base al token dell'user che gli passo
     @GetMapping("/me/bookings")
     public List<Booking> getBookingsUser(@AuthenticationPrincipal User user) {
         return user.getBookings();
