@@ -14,6 +14,5 @@ import java.util.UUID;
 @Repository
 public interface BookingDAO extends JpaRepository<Booking, UUID> {
 
-    Optional<Event> findByTitle(String title);
 
 }

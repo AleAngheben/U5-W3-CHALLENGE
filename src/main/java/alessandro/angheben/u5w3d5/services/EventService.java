@@ -28,10 +28,10 @@ public class EventService {
     public Event findByIdAndUpdate(UUID id, Event body){
         Event found = this.findById(id);
         if (body.getTitle() != null) {found.setTitle(body.getTitle());}
-        if (body.getDescription() != null) {found.getDescription(body.getDescription());}
+        if (body.getDescription() != null) {found.setDescription(body.getDescription());}
         if (body.getDate() != null) {found.setDate(body.getDate());}
-        if (body.getPlace() != null) {found.getPlace(body.getPlace());}
-        if (body.getMaxPeople() != 0) {found.getMaxPeople(body.getMaxPeople());}
+        if (body.getPlace() != null) {found.setPlace(body.getPlace());}
+        if (body.getMaxPeople() != 0) {found.setMaxPeople(body.getMaxPeople());}
 
 
         return eventDAO.save(found);
