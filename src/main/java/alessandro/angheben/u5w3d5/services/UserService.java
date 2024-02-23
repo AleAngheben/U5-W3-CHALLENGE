@@ -2,10 +2,12 @@ package alessandro.angheben.u5w3d5.services;
 
 import alessandro.angheben.u5w3d5.DAO.UserDAO;
 import alessandro.angheben.u5w3d5.entities.User;
+import alessandro.angheben.u5w3d5.enums.Role;
 import alessandro.angheben.u5w3d5.exceptions.BadRequestException;
 import alessandro.angheben.u5w3d5.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.UUID;
@@ -51,6 +53,18 @@ public class UserService {
         }
 
         return userDAO.save(found);
+    }
+
+    public User findByTokenAndChangeRole(User user) {
+       // User userToChange = this.findById(id);
+        if (user.getRole().name().equals("BASIC")) {
+            user.setRole(Role.ADMIN);
+        } else if (user.getRole().name().equals("ADMIN")) {
+            user.setRole(Role.BASIC);
+        } else {
+            throw new BadRequestException("You can choose BASIC or ADMIN");
+        }
+        return userDAO.save(user);
     }
 
     public void findByIdAndDelete(UUID id) {

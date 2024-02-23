@@ -7,11 +7,10 @@ import jakarta.websocket.server.ServerEndpoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/users")
@@ -22,13 +21,29 @@ public class UserController {
 
     @GetMapping
     @PreAuthorize("hasAuthority('ADMIN')")
-    public List<User> getUsers(){return this.userService.getUsers();}
+    public List<User> getUsers() {
+        return this.userService.getUsers();
+    }
 
-@GetMapping("/me")
-    public User getUser(@AuthenticationPrincipal User user){
+    //con token in auth bearer ci restituisce l'user
+    @GetMapping("/me")
+    public User getUser(@AuthenticationPrincipal User user) {
         return user;
-}
+    }
 
-@GetMapping("/me/bookings")
-    public List<Booking> getBookingsUser(@AuthenticationPrincipal User user){return user.getBookings();}
+    @GetMapping("/me/bookings")
+    public List<Booking> getBookingsUser(@AuthenticationPrincipal User user) {
+        return user.getBookings();
+    }
+
+
+    //con il token se l'user è basic lo traforma in admi e viceversa
+    @PatchMapping("/me/setrole")
+    public User findByTokenAndChangeRole(@AuthenticationPrincipal User user) {
+
+        User updateUser = userService.findByTokenAndChangeRole(user);
+        return updateUser;
+    }
+
+
 }
