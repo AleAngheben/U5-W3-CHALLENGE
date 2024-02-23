@@ -3,6 +3,7 @@ package alessandro.angheben.u5w3d5.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
@@ -13,10 +14,11 @@ import java.util.UUID;
 @Getter
 @Setter
 @Table(name = "events")
+@NoArgsConstructor
 public class Event {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+   @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     private String title;
@@ -25,7 +27,7 @@ public class Event {
     private String place;
     private int maxPeople;
 
-    @OneToMany (mappedBy = "events")
+    @OneToMany (mappedBy = "event")
     @JsonIgnore
     private List<Booking> bookings;
 

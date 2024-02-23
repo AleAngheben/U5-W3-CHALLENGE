@@ -20,6 +20,8 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
+    private int maxAttends;
+
     @ManyToOne
     @JoinColumn(name = "event_id")
     public Event event;
