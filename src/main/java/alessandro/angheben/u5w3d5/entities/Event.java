@@ -1,11 +1,40 @@
 package alessandro.angheben.u5w3d5.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.time.LocalDate;
+import java.util.List;
+import java.util.UUID;
 
+@Entity
+@Getter
+@Setter
+@Table(name = "events")
 public class Event {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private UUID id;
 
+    private String title;
+    private String description;
+    private LocalDate date;
+    private String place;
+    private int maxPeople;
 
+    @OneToMany (mappedBy = "events")
+    @JsonIgnore
+    private List<Booking> bookings;
+
+    public Event(String title, String description, LocalDate date, String place, int maxPeople, List<Booking> bookings) {
+        this.title = title;
+        this.description = description;
+        this.date = date;
+        this.place = place;
+        this.maxPeople = maxPeople;
+        this.bookings = bookings;
+    }
 }
